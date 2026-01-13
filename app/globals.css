@@ -846,6 +846,78 @@ body {
   }
 }
 
+/* ---------- Desktop / Responsive Layouts ---------- */
+/* Medium screens (tablets) */
+@media (min-width: 768px) {
+  .app-header-inner {
+    max-width: 720px;
+    padding: 0 var(--spacing-lg);
+    min-height: 88px;
+  }
+
+  .app-content {
+    max-width: 720px;
+    padding: 0 var(--spacing-xl);
+    padding-bottom: 140px;
+  }
+
+  .app-logo img {
+    height: 72px;
+  }
+
+  .bottom-nav {
+    max-width: 520px;
+  }
+}
+
+/* Large screens (desktop) */
+@media (min-width: 1024px) {
+  .app-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: center;
+    min-height: 84px;
+  }
+
+  .app-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-xxl);
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* Make the main column wider and allow a left sidebar area */
+  .app-content > *:first-child {
+    grid-column: 2 / 3;
+  }
+
+  .app-logo img {
+    height: 64px;
+  }
+
+  /* Hide mobile bottom nav on desktop */
+  .bottom-nav {
+    display: none;
+  }
+
+  /* Improve card layout on desktop */
+  .card {
+    border-radius: 18px;
+  }
+
+  /* Increase spacing for desktop forms and headings */
+  .page-title {
+    font-size: 22px;
+  }
+
+  .market-question {
+    font-size: 18px;
+  }
+}
+
 /* Touch target minimum */
 button, a, .btn-press {
   min-height: 48px;
