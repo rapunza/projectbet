@@ -42,133 +42,11 @@ export interface PortfolioHistoryEntry {
   marketId?: number
 }
 
-// Initial demo markets
-const INITIAL_MARKETS: Market[] = [
-  {
-    id: 1,
-    question: 'Will ETH flip BTC market cap this cycle?',
-    postUrl: 'https://base.org/post/abc123',
-    authorHandle: '@vitalik.eth',
-    postText: 'The flippening narrative is heating up again. With the ETH/BTC ratio climbing and institutional interest growing, this cycle might finally be the one.',
-    postedAt: '4h ago',
-    platform: 'base',
-    deadline: Date.now() + 30 * 24 * 60 * 60 * 1000,
-    status: 'open',
-    outcomeYes: false,
-    yesPool: 45200,
-    noPool: 38100,
-  },
-  {
-    id: 2,
-    question: 'Will Base reach 100M users by end of 2025?',
-    postUrl: 'https://base.org/post/def456',
-    authorHandle: '@jessepollak',
-    postText: 'Base is growing faster than any L2 in history. We just crossed 10M weekly active users. The path to 100M is clearer than ever.',
-    postedAt: '1d ago',
-    platform: 'base',
-    deadline: Date.now() + 180 * 24 * 60 * 60 * 1000,
-    status: 'open',
-    outcomeYes: false,
-    yesPool: 78500,
-    noPool: 22300,
-  },
-  {
-    id: 3,
-    question: 'Will BTC reach $150k this year?',
-    postUrl: 'https://twitter.com/saylor/status/123456789',
-    authorHandle: '@saylor',
-    postText: 'Bitcoin is the apex property of the human race. $150k is just a milestone on the path to millions. Stack sats.',
-    postedAt: '2d ago',
-    platform: 'twitter',
-    deadline: Date.now() + 90 * 24 * 60 * 60 * 1000,
-    status: 'open',
-    outcomeYes: false,
-    yesPool: 125000,
-    noPool: 45000,
-  },
-  {
-    id: 4,
-    question: 'Will SOL outperform ETH in Q1 2025?',
-    postUrl: 'https://twitter.com/aaboronkov/status/987654321',
-    authorHandle: '@aeyakovenko',
-    postText: 'Solana is shipping faster than anyone. The Firedancer upgrade will change everything. Q1 2025 is our moment.',
-    postedAt: '3w ago',
-    platform: 'twitter',
-    deadline: Date.now() - 10 * 24 * 60 * 60 * 1000,
-    status: 'resolved',
-    outcomeYes: false,
-    yesPool: 32000,
-    noPool: 41000,
-  },
-  {
-    id: 5,
-    question: 'Will Apple announce AR glasses at WWDC?',
-    postUrl: 'https://twitter.com/markgurman/status/111222333',
-    authorHandle: '@markgurman',
-    postText: 'Sources say Apple is ready to unveil their long-awaited AR glasses. The device will revolutionize how we interact with technology.',
-    postedAt: '5d ago',
-    platform: 'twitter',
-    deadline: Date.now() - 2 * 24 * 60 * 60 * 1000,
-    status: 'open',
-    outcomeYes: false,
-    yesPool: 18500,
-    noPool: 22000,
-  },
-  {
-    id: 6,
-    question: 'Will Trump mention crypto in his first 100 days?',
-    postUrl: 'https://twitter.com/realDonaldTrump/status/999888777',
-    authorHandle: '@realDonaldTrump',
-    postText: 'We are going to make America the crypto capital of the world. No more regulations killing innovation!',
-    postedAt: '1h ago',
-    platform: 'twitter',
-    deadline: Date.now() - 1 * 60 * 60 * 1000, // 1 hour ago - READY TO RESOLVE
-    status: 'open',
-    outcomeYes: false,
-    yesPool: 50000,
-    noPool: 25000,
-  },
-]
+// Initial demo markets - Empty for production
+const INITIAL_MARKETS: Market[] = []
 
-// Initial demo user bets
-const INITIAL_BETS: UserBet[] = [
-  {
-    marketId: 1,
-    question: 'Will ETH flip BTC market cap this cycle?',
-    side: 'yes',
-    stake: 50,
-    status: 'open',
-  },
-  {
-    marketId: 3,
-    question: 'Will BTC reach $150k this year?',
-    side: 'no',
-    stake: 25,
-    status: 'open',
-  },
-  {
-    marketId: 4,
-    question: 'Will SOL outperform ETH in Q1 2025?',
-    side: 'no',
-    stake: 30,
-    status: 'won',
-    payout: 52,
-  },
-  {
-    marketId: 5,
-    question: 'Will Apple announce AR glasses at WWDC?',
-    side: 'yes',
-    stake: 40,
-    status: 'open',
-  },
-  {
-    marketId: 6,
-    question: 'Will Trump mention crypto in his first 100 days?',
-    side: 'yes',
-    stake: 100,
-    status: 'open', // Ready to resolve - you bet YES with 100 USDC
-  },
-]
+// Initial demo user bets - Empty for production
+const INITIAL_BETS: UserBet[] = []
 
 interface MarketsContextType {
   markets: Market[]
@@ -196,17 +74,11 @@ const STORAGE_KEYS = {
   PORTFOLIO_HISTORY: 'voucheo_portfolio_history',
 }
 
-// Initial portfolio balance (demo)
-const INITIAL_PORTFOLIO_BALANCE = 1000 // Start with 1000 USDC
+// Initial portfolio balance - 0 for production (users use real USDC)
+const INITIAL_PORTFOLIO_BALANCE = 0
 
-// Initial portfolio history
-const INITIAL_PORTFOLIO_HISTORY: PortfolioHistoryEntry[] = [
-  { timestamp: Date.now() - 7 * 24 * 60 * 60 * 1000, balance: 1000, action: 'initial', amount: 1000 },
-  { timestamp: Date.now() - 5 * 24 * 60 * 60 * 1000, balance: 950, action: 'bet', amount: -50, marketId: 1 },
-  { timestamp: Date.now() - 3 * 24 * 60 * 60 * 1000, balance: 925, action: 'bet', amount: -25, marketId: 3 },
-  { timestamp: Date.now() - 2 * 24 * 60 * 60 * 1000, balance: 895, action: 'bet', amount: -30, marketId: 4 },
-  { timestamp: Date.now() - 1 * 24 * 60 * 60 * 1000, balance: 947, action: 'claim', amount: 52, marketId: 4 },
-]
+// Initial portfolio history - Empty for production
+const INITIAL_PORTFOLIO_HISTORY: PortfolioHistoryEntry[] = []
 
 // Helper to load from localStorage
 function loadFromStorage<T>(key: string, fallback: T): T {
