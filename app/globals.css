@@ -917,15 +917,7 @@ body {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 var(--spacing-xxl);
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 28px;
-    align-items: start;
-  }
-
-  /* Make the main column wider and allow a left sidebar area */
-  .app-content > *:first-child {
-    grid-column: 2 / 3;
+    padding-bottom: 140px;
   }
 
   .app-logo img {

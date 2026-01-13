@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { Home, Search, Plus, BarChart3, User } from 'lucide-react'
+import { Home, Search, Plus, BarChart3, User, Trophy, Coins } from 'lucide-react'
 
 interface BottomNavProps {
-  active?: 'home' | 'search' | 'portfolio' | 'profile'
+  active?: 'home' | 'search' | 'portfolio' | 'profile' | 'leaderboard' | 'points'
 }
 
 export function BottomNav({ active }: BottomNavProps) {
@@ -18,7 +18,7 @@ export function BottomNav({ active }: BottomNavProps) {
         >
           {active === 'home' && <span className="bottom-nav-indicator" />}
           <Home size={20} className="bottom-nav-icon" />
-          <span className="bottom-nav-label">Home</span>
+          <span className="bottom-nav-label">Challenges</span>
         </Link>
         
         <Link 
@@ -42,6 +42,24 @@ export function BottomNav({ active }: BottomNavProps) {
         </div>
 
         {/* Right group */}
+        <Link 
+          href="/leaderboard" 
+          className={`bottom-nav-item btn-press ${active === 'leaderboard' ? 'active' : ''}`}
+        >
+          {active === 'leaderboard' && <span className="bottom-nav-indicator" />}
+          <Trophy size={20} className="bottom-nav-icon" />
+          <span className="bottom-nav-label">Leaderboard</span>
+        </Link>
+
+        <Link 
+          href="/points" 
+          className={`bottom-nav-item btn-press ${active === 'points' ? 'active' : ''}`}
+        >
+          {active === 'points' && <span className="bottom-nav-indicator" />}
+          <Coins size={20} className="bottom-nav-icon" />
+          <span className="bottom-nav-label">Points</span>
+        </Link>
+
         <Link 
           href="/my-bets" 
           className={`bottom-nav-item btn-press ${active === 'portfolio' ? 'active' : ''}`}
