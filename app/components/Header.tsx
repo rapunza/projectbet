@@ -1,5 +1,6 @@
-'use client'
+"use client"
 
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { useMiniApp } from '../hooks/useMiniApp'
@@ -38,6 +39,15 @@ export function Header() {
             alt="VOUCHEO"
           />
         </div>
+
+        {/* Desktop topbar menu (visible on larger screens) */}
+        <nav className="desktop-nav">
+          <Link href="/" className="desktop-nav-link">Home</Link>
+          <Link href="/search" className="desktop-nav-link">Search</Link>
+          <Link href="/create" className="desktop-nav-link desktop-nav-cta">Create</Link>
+          <Link href="/my-bets" className="desktop-nav-link">Portfolio</Link>
+          <Link href="/profile" className="desktop-nav-link">Profile</Link>
+        </nav>
 
         {isConnected ? (
           <button className="wallet-btn btn-press" onClick={() => disconnect()}>

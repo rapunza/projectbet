@@ -373,6 +373,34 @@ body {
   color: var(--text-primary);
 }
 
+/* Desktop nav styles */
+.desktop-nav {
+  display: none;
+  gap: 18px;
+  align-items: center;
+  margin-left: 24px;
+}
+
+.desktop-nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: all 0.15s;
+}
+
+.desktop-nav-link:hover {
+  color: var(--text-primary);
+  background: rgba(27, 28, 35, 0.5);
+}
+
+.desktop-nav-cta {
+  background: var(--primary);
+  color: var(--surface);
+  box-shadow: 0 8px 30px rgba(200,255,68,0.12);
+}
+
 .market-meta {
   display: flex;
   align-items: center;
@@ -879,6 +907,12 @@ body {
     min-height: 84px;
   }
 
+  .app-header-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
   .app-content {
     max-width: 1100px;
     margin: 0 auto;
@@ -901,6 +935,11 @@ body {
   /* Hide mobile bottom nav on desktop */
   .bottom-nav {
     display: none;
+  }
+
+  /* show desktop nav */
+  .desktop-nav {
+    display: flex;
   }
 
   /* Improve card layout on desktop */
