@@ -7,7 +7,7 @@ import { MarketList } from './components/MarketList'
 import { PortfolioHeader } from './components/PortfolioHeader'
 
 export default function Home() {
-  const [filter, setFilter] = useState<'open' | 'resolved'>('open')
+  const [filter, setFilter] = useState<'open' | 'resolved' | 'p2p' | 'ended'>('open')
 
   return (
     <div className="app">
@@ -24,6 +24,18 @@ export default function Home() {
             onClick={() => setFilter('open')}
           >
             Open Markets
+          </button>
+          <button 
+            className={`nav-tab btn-press ${filter === 'p2p' ? 'active' : ''}`}
+            onClick={() => setFilter('p2p')}
+          >
+            P2P
+          </button>
+          <button 
+            className={`nav-tab btn-press ${filter === 'ended' ? 'active' : ''}`}
+            onClick={() => setFilter('ended')}
+          >
+            Ended
           </button>
           <button 
             className={`nav-tab btn-press ${filter === 'resolved' ? 'active' : ''}`}

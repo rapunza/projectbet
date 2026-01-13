@@ -8,15 +8,21 @@ import { useMarkets, Market } from '../context/MarketsContext'
 export type { Market } from '../context/MarketsContext'
 
 interface MarketListProps {
-  filter: 'open' | 'resolved'
+  filter: 'open' | 'resolved' | 'p2p' | 'ended'
 }
 
 export function MarketList({ filter }: MarketListProps) {
   const { markets } = useMarkets()
-  
+
+  const now = Date.now()
+
   const filteredMarkets = markets.filter(m => {
     if (filter === 'open') return m.status === 'open'
-    return m.status === 'resolved'
+    if (filter === 'resolved') return m.status === 'resolved'
+    if (filter === 'p2p') return Boolean(m.creatorAddress)
+    // 'ended' shows markets that are no longer open (resolved or locked) or whose deadline passed
+    if (filter === 'ended') return m.status !== 'open' || m.deadline <= now
+    return false
   })
 
   if (filteredMarkets.length === 0) {
@@ -27,7 +33,11 @@ export function MarketList({ filter }: MarketListProps) {
         <div className="empty-text">
           {filter === 'open' 
             ? 'Be the first to create a market!'
-            : 'No resolved markets to show.'}
+            : filter === 'p2p'
+              ? 'No P2P markets yet.'
+              : filter === 'ended'
+                ? 'No ended markets to show.'
+                : 'No resolved markets to show.'}
         </div>
       </div>
     )
