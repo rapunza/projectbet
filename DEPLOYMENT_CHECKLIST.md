@@ -63,8 +63,7 @@ NEXT_PUBLIC_ONCHAINKIT_API_KEY=<your-onchainkit-api-key>
 # Option A: Connect GitHub repo to Vercel (recommended)
 # Push to main branch, Vercel auto-deploys
 
-# Option B: Manual deploy
-cd webapp
+# Option B: Manual deploy (from repository root)
 npx vercel --prod
 ```
 
@@ -100,7 +99,7 @@ npx vercel --prod
 
 ### Error Monitoring (Recommended)
 - Add Sentry or similar for production error tracking
-- Configure in `webapp/app/components/ErrorBoundary.tsx`
+- Configure in `app/components/ErrorBoundary.tsx`
 
 ### Chain Monitoring
 - Monitor contract events on BaseScan
