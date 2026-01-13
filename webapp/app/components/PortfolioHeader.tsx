@@ -3,6 +3,7 @@
 import { useAccount } from 'wagmi'
 import { useState } from 'react'
 import { useMarkets } from '../context/MarketsContext'
+import { useUSDC } from '../hooks/useContract'
 
 // Mini sparkline chart component
 function MiniLineChart({ series }: { series: number[] }) {
@@ -84,7 +85,11 @@ function MiniLineChart({ series }: { series: number[] }) {
 
 export function PortfolioHeader() {
   const { isConnected } = useAccount()
-  const { portfolioBalance, portfolioHistory, totalStaked } = useMarkets()
+  const { portfolioHistory, totalStaked } = useMarkets()
+  const { balance: usdcBalance } = useUSDC()
+  
+  // Use real USDC balance from wallet instead of localStorage
+  const portfolioBalance = parseFloat(usdcBalance)
 
   // Chart state
   const [isChartOpen, setIsChartOpen] = useState(false)
