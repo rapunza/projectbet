@@ -5,9 +5,9 @@ import '@coinbase/onchainkit/styles.css'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'VOUCHEO - Base Sepolia Testnet',
-  description: 'Put your take on record. Prediction markets for Base posts. TESTNET ONLY.',
-  applicationName: 'VOUCHEO',
+  title: 'Bantah- Base Sepolia Testnet',
+  description: 'Put your take on record. Prediction markets for Base posts.',
+  applicationName: 'bant-A-bro',
   robots: {
     index: false, // Don't index testnet app
     follow: false,
@@ -29,6 +29,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+      </head>
       <body suppressHydrationWarning>
         <TestnetBanner />
         <div style={{ paddingTop: '28px' }}>

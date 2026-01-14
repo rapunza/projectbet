@@ -35,7 +35,7 @@ export function Header() {
       <div className="app-header-inner">
         <div className="app-logo">
           <img
-            src="/logo.png"
+            src="/logo.svg"
             alt="bant-A-bro"
           />
         </div>
