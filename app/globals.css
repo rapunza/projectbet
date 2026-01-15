@@ -179,7 +179,7 @@ body {
 }
 
 .app-logo img {
-  height: 108px;
+  height: 36px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -473,6 +473,35 @@ body {
   text-decoration: none;
   cursor: pointer;
   transition: all 0.15s;
+}
+
+/* Mobile icon buttons - hidden on desktop */
+.mobile-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(27, 28, 35, 0.4);
+  border: 1px solid rgba(31, 32, 40, 0.5);
+  color: var(--text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  padding: 0;
+}
+
+.mobile-icon-btn:hover {
+  background: rgba(27, 28, 35, 0.7);
+  color: var(--text-primary);
+  border-color: rgba(31, 32, 40, 0.8);
+}
+
+@media (min-width: 1024px) {
+  .mobile-icon-btn {
+    display: none;
+  }
 }
 
 .desktop-icon-btn:hover {
@@ -1982,12 +2011,20 @@ button, a, .btn-press {
 .leaderboard-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 12px;
+  gap: 8px;
+  padding: 12px;
   background: rgba(27, 28, 35, 0.3);
   border: 1px solid rgba(31, 32, 40, 0.3);
   border-radius: 12px;
   transition: all 0.2s;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .leaderboard-item {
+    gap: 6px;
+    padding: 10px;
+  }
 }
 
 .leaderboard-item:hover {
@@ -2018,6 +2055,13 @@ button, a, .btn-press {
   text-align: center;
 }
 
+@media (max-width: 640px) {
+  .leaderboard-rank-badge {
+    font-size: 20px;
+    min-width: 28px;
+  }
+}
+
 .leaderboard-avatar {
   width: 40px;
   height: 40px;
@@ -2025,6 +2069,13 @@ button, a, .btn-press {
   border-radius: 10px;
   overflow: hidden;
   border: 2px solid rgba(200, 255, 68, 0.2);
+}
+
+@media (max-width: 640px) {
+  .leaderboard-avatar {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .leaderboard-user-info {
@@ -2051,15 +2102,34 @@ button, a, .btn-press {
   justify-content: flex-end;
 }
 
+@media (max-width: 640px) {
+  .leaderboard-points {
+    min-width: 45px;
+    gap: 2px;
+  }
+}
+
 .points-value {
   font-size: 18px;
   font-weight: 700;
   color: var(--primary);
 }
 
+@media (max-width: 640px) {
+  .points-value {
+    font-size: 14px;
+  }
+}
+
 .points-label {
   font-size: 12px;
   color: var(--text-tertiary);
+}
+
+@media (max-width: 640px) {
+  .points-label {
+    font-size: 10px;
+  }
 }
 
 .leaderboard-stat {
@@ -2068,6 +2138,25 @@ button, a, .btn-press {
   align-items: center;
   gap: 2px;
   min-width: 50px;
+}
+
+@media (max-width: 640px) {
+  .leaderboard-stat {
+    min-width: 40px;
+    gap: 1px;
+  }
+}
+
+.stat-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+@media (max-width: 640px) {
+  .stat-value {
+    font-size: 12px;
+  }
 }
 
 .stat-value {
@@ -2080,6 +2169,12 @@ button, a, .btn-press {
   font-size: 11px;
   color: var(--text-tertiary);
   white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .stat-label {
+    font-size: 9px;
+  }
 }
 
 .leaderboard-actions {
@@ -2244,4 +2339,89 @@ button, a, .btn-press {
 
 .activity-item-amount.negative {
   color: var(--error);
+}
+
+/* ========== SETTINGS PAGE STYLES ========== */
+
+.settings-section {
+  margin-bottom: 24px;
+}
+
+.settings-section:last-child {
+  margin-bottom: 0;
+}
+
+.settings-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.settings-item:last-child {
+  border-bottom: none;
+}
+
+.settings-item:hover {
+  background: var(--bg-secondary);
+}
+
+.settings-item-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.settings-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.settings-item-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.settings-item-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.settings-item-description {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin: 4px 0 0 0;
+}
+
+.settings-item-arrow {
+  color: var(--text-tertiary);
+  flex-shrink: 0;
 }

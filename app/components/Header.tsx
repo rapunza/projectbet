@@ -77,12 +77,21 @@ export function Header() {
 
         {/* Desktop action buttons (icon only) */}
         <div className="desktop-actions">
-          <Link href="/create" className="desktop-icon-btn desktop-create-btn" title="Create">
-            <Zap size={18} />
-          </Link>
-          <Link href="/profile" className="desktop-icon-btn" title="Profile">
-            <User size={18} />
-          </Link>
+          {isConnected && (
+            <Link href="/create" className="desktop-icon-btn desktop-create-btn" title="Create">
+              <Zap size={18} />
+            </Link>
+          )}
+          {isConnected && (
+            <Link href="/referrals" className="desktop-icon-btn" title="Referrals">
+              <Flame size={18} />
+            </Link>
+          )}
+          {isConnected && (
+            <Link href="/settings" className="desktop-icon-btn" title="Settings">
+              <User size={18} />
+            </Link>
+          )}
         </div>
 
         {isConnected ? (
@@ -101,6 +110,24 @@ export function Header() {
           </button>
         ) : (
           <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            {/* Mobile icon buttons - hidden on desktop */}
+            <Link href="/leaderboard" className="mobile-icon-btn" title="Leaderboard">
+              <Trophy size={18} />
+            </Link>
+            {isConnected && (
+              <Link href="/profile" className="mobile-icon-btn" title="Profile">
+                <User size={18} />
+              </Link>
+            )}
+            <button
+              className="mobile-icon-btn"
+              onClick={toggleTheme}
+              title={isDark ? 'Light mode' : 'Dark mode'}
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
+            {/* Desktop theme toggle */}
             <button
               className="desktop-icon-btn theme-toggle-btn"
               onClick={toggleTheme}
@@ -108,6 +135,8 @@ export function Header() {
             >
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
+
+            {/* Connect button */}
             <button
               className="btn btn-primary btn-sm btn-press"
               onClick={() => setShowWalletOptions(!showWalletOptions)}

@@ -5,11 +5,12 @@ import { BottomNav } from '../components/BottomNav'
 import Link from 'next/link'
 import { Trophy } from 'lucide-react'
 import { useState } from 'react'
-import { CompactProfileCard } from '../components/CompactProfileCard'
+import { ProfileCardModal } from '../components/ProfileCardModal'
 
 export default function LeaderboardPage() {
-  const [selectedUser, setSelectedUser] = useState<string | null>(null)
-  
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const entries = [
     { rank: 1, id: 'alice', handle: '@alice', points: 324, markets: 48, wins: 32, earnings: 1240 },
     { rank: 2, id: 'bob', handle: '@bob', points: 290, markets: 42, wins: 28, earnings: 1080 },
@@ -29,7 +30,10 @@ export default function LeaderboardPage() {
     return `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`
   }
 
-  const selectedEntry = entries.find(e => e.id === selectedUser)
+  const handleUserClick = (userId: string) => {
+    setSelectedUserId(userId)
+    setIsModalOpen(true)
+  }
 
   return (
     <div className="app">
@@ -43,17 +47,20 @@ export default function LeaderboardPage() {
 
         <div className="card leaderboard-card">
           <div className="card-body">
-            <div className="leaderboard-header">
-              <Trophy size={24} className="leaderboard-icon" />
-              <p className="leaderboard-subtitle">Top users by points</p>
-            </div>
-
             <div className="leaderboard-list">
               {entries.map((entry) => (
-                <div
+                <button
                   key={entry.rank}
-                  className={`leaderboard-item rank-${entry.rank} cursor-pointer`}
-                  onClick={() => setSelectedUser(entry.id)}
+                  className={`leaderboard-item rank-${entry.rank}`}
+                  onClick={() => handleUserClick(entry.id)}
+                  style={{
+                    background: 'inherit',
+                    border: 'inherit',
+                    cursor: 'pointer',
+                    width: '100%',
+                    textAlign: 'left',
+                    padding: 'inherit',
+                  }}
                 >
                   <div className="leaderboard-rank-badge">
                     {getMedalIcon(entry.rank)}
@@ -69,7 +76,6 @@ export default function LeaderboardPage() {
 
                   <div className="leaderboard-user-info">
                     <div className="leaderboard-handle">{entry.handle}</div>
-                    <div className="leaderboard-rank-text">Rank #{entry.rank}</div>
                   </div>
 
                   <div className="leaderboard-stat">
@@ -91,7 +97,7 @@ export default function LeaderboardPage() {
                     <span className="points-value">{entry.points}</span>
                     <span className="points-label">pts</span>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
 
@@ -106,18 +112,11 @@ export default function LeaderboardPage() {
 
       <BottomNav active="leaderboard" />
 
-      {selectedEntry && (
-        <CompactProfileCard
-          userId={selectedEntry.id}
-          username={selectedEntry.handle}
-          avatar={getAvatarUrl(selectedEntry.handle)}
-          stats={{
-            wins: selectedEntry.wins,
-            markets: selectedEntry.markets,
-            earnings: selectedEntry.earnings,
-            points: selectedEntry.points,
-          }}
-          onClose={() => setSelectedUser(null)}
+      {selectedUserId && (
+        <ProfileCardModal
+          userId={selectedUserId}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
         />
       )}
     </div>
