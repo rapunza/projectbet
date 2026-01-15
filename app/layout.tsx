@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Providers } from './providers'
 import { TestnetBanner } from './components/TestnetBanner'
+import { SplashScreen } from './components/SplashScreen'
 import '@coinbase/onchainkit/styles.css'
 import './globals.css'
 
@@ -17,7 +18,6 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
     userScalable: false,
-    themeColor: '#000000',
   },
 }
 
@@ -32,6 +32,7 @@ export default function RootLayout({
         <link rel="icon" href="/logo.svg" type="image/svg+xml" />
       </head>
       <body suppressHydrationWarning>
+        <SplashScreen />
         <TestnetBanner />
         <div style={{ paddingTop: '28px' }}>
           <Providers>{children}</Providers>

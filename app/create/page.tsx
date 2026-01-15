@@ -6,10 +6,12 @@ import { useAccount, useConnect } from 'wagmi'
 import { Header } from '../components/Header'
 import { BottomNav } from '../components/BottomNav'
 import { PostPreviewCard } from '../components/PostPreviewCard'
-import { useMarkets } from '../context/MarketsContext'
+import { useMarkets, Category } from '../context/MarketsContext'
 import Link from 'next/link'
 
 export type Platform = 'base' | 'twitter'
+
+const CATEGORIES: Category[] = ['Politics', 'Finance', 'Sports', 'Tech', 'Entertainment', 'Science', 'Weather', 'Other']
 
 export default function CreateMarket() {
   const router = useRouter()
@@ -25,6 +27,7 @@ export default function CreateMarket() {
   const [question, setQuestion] = useState('')
   const [deadline, setDeadline] = useState('')
   const [initialStake, setInitialStake] = useState('')
+  const [category, setCategory] = useState<Category>('Other')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [step, setStep] = useState<'form' | 'preview' | 'success'>('form')
   const [createdMarketId, setCreatedMarketId] = useState<number | null>(null)
@@ -50,6 +53,7 @@ export default function CreateMarket() {
       initialStake: parseFloat(initialStake),
       creatorAddress: address,
       platform,
+      category,
     })
     
     setCreatedMarketId(newMarketId)
@@ -266,6 +270,28 @@ export default function CreateMarket() {
               </div>
               <div className="form-hint">
                 Your stake goes to the YES pool. Minimum 1 USDC.
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Category</label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value as Category)}
+                className="form-input"
+              >
+                <option value="Other">Select a category...</option>
+                <option value="Politics">Politics</option>
+                <option value="Finance">Finance</option>
+                <option value="Sports">Sports</option>
+                <option value="Tech">Tech</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Science">Science</option>
+                <option value="Weather">Weather</option>
+                <option value="Other">Other</option>
+              </select>
+              <div className="form-hint">
+                What category does this market belong to?
               </div>
             </div>
 

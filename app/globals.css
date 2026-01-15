@@ -13,26 +13,50 @@
 
 /* Design System Foundations */
 :root {
-  /* Colors - Semantic */
-  --primary: #C8FF44;
+  /* OKLCH Color System */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+
+  /* Legacy Colors - Semantic */
+  --primary-lime: #C8FF44;
   --primary-variant: #B2F028;
   --success: #5BEA7C;
   --warning: #F2C94C;
   --error: #FF5C5C;
   
-  /* Colors - Surfaces */
+  /* Legacy Colors - Surfaces */
   --surface: #0B0B0F;
   --surface-raised: #13141A;
   --surface-muted: #1B1C23;
   --tab-bar: #050506;
   --chart-fill: #1E1F27;
   
-  /* Colors - Text */
+  /* Legacy Colors - Text */
   --text-primary: #FFFFFF;
   --text-secondary: #C7CBD4;
   --text-tertiary: #8E93A3;
   
-  /* Colors - Borders */
+  /* Legacy Colors - Borders */
   --border-subtle: #1F2028;
   
   /* Spacing Scale */
@@ -49,6 +73,31 @@
   --radius-button: 18px;
   --radius-card: 24px;
   --radius-sheet: 28px;
+}
+
+.dark {
+  /* Dark Mode OKLCH */
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
 }
 
 /* Reset & Base */
@@ -206,8 +255,7 @@ body {
   max-width: 428px;
   margin: 0 auto;
   width: 100%;
-  padding: 0 var(--spacing-lg);
-  padding-bottom: 112px;
+  padding: 16px var(--spacing-lg) 112px;
 }
 
 /* Navigation */
@@ -241,6 +289,12 @@ body {
   background: var(--primary);
   font-weight: 600;
   box-shadow: 0 0 20px rgba(200, 255, 68, 0.3);
+}
+
+.category-tabs {
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  padding-top: var(--spacing-md);
 }
 
 /* Buttons */
@@ -1010,7 +1064,7 @@ body {
 
   .app-content {
     max-width: 720px;
-    padding: 0 var(--spacing-xl);
+    padding: 20px var(--spacing-xl);
     padding-bottom: 140px;
   }
 
@@ -1041,7 +1095,7 @@ body {
   .app-content {
     max-width: 72rem;
     margin: 0 auto;
-    padding: 0 var(--spacing-xxl);
+    padding: 24px var(--spacing-xxl);
     padding-bottom: 140px;
   }
 

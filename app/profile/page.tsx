@@ -4,6 +4,7 @@ import { useAccount, useConnect, useDisconnect, useChainId } from 'wagmi'
 import { User, Wallet, LogOut, ExternalLink, AlertTriangle } from 'lucide-react'
 import { Header } from '../components/Header'
 import { BottomNav } from '../components/BottomNav'
+import { PortfolioHeader } from '../components/PortfolioHeader'
 import { SUPPORTED_CHAIN_ID } from '../providers'
 
 export default function ProfilePage() {
@@ -42,7 +43,7 @@ export default function ProfilePage() {
             </button>
           </div>
         </main>
-        <BottomNav active="profile" />
+        <BottomNav />
       </div>
     )
   }
@@ -55,6 +56,9 @@ export default function ProfilePage() {
         <div className="page-header">
           <h1 className="page-title">Profile</h1>
         </div>
+
+        {/* Portfolio Section */}
+        <PortfolioHeader />
 
         {/* User Card */}
         <div className="card" style={{ marginBottom: '16px' }}>
@@ -135,7 +139,7 @@ export default function ProfilePage() {
         </div>
       </main>
 
-      <BottomNav active="profile" />
+      <BottomNav />
     </div>
   )
 }

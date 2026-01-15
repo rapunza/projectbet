@@ -4,20 +4,19 @@ import { useState } from 'react'
 import { Header } from './components/Header'
 import { BottomNav } from './components/BottomNav'
 import { MarketList } from './components/MarketList'
-import { PortfolioHeader } from './components/PortfolioHeader'
+import { Category } from './context/MarketsContext'
 
 export default function Home() {
   const [filter, setFilter] = useState<'open' | 'resolved' | 'p2p' | 'ended'>('open')
+  const [category, setCategory] = useState<Category | 'All'>('All')
 
   return (
     <div className="app">
       <Header />
       
       <main className="app-content with-bottom-nav">
-        {/* Portfolio Header */}
-        <PortfolioHeader />
 
-        {/* Tabs */}
+        {/* Status Tabs */}
         <div className="nav-tabs animate-fade-in">
           <button 
             className={`nav-tab btn-press ${filter === 'open' ? 'active' : ''}`}
@@ -46,7 +45,7 @@ export default function Home() {
         </div>
 
         {/* Market List */}
-        <MarketList filter={filter} />
+        <MarketList filter={filter} category={category !== 'All' ? category : undefined} />
 
       </main>
 

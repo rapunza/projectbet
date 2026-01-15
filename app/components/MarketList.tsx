@@ -2,27 +2,32 @@
 
 import Link from 'next/link'
 import { PostPreviewCard } from './PostPreviewCard'
-import { useMarkets, Market } from '../context/MarketsContext'
+import { useMarkets, Market, Category } from '../context/MarketsContext'
 
 // Re-export Market type for compatibility
 export type { Market } from '../context/MarketsContext'
 
 interface MarketListProps {
   filter: 'open' | 'resolved' | 'p2p' | 'ended'
+  category?: Category
 }
 
-export function MarketList({ filter }: MarketListProps) {
+export function MarketList({ filter, category }: MarketListProps) {
   const { markets } = useMarkets()
 
   const now = Date.now()
 
   const filteredMarkets = markets.filter(m => {
-    if (filter === 'open') return m.status === 'open'
-    if (filter === 'resolved') return m.status === 'resolved'
-    if (filter === 'p2p') return Boolean(m.creatorAddress)
-    // 'ended' shows markets that are no longer open (resolved or locked) or whose deadline passed
-    if (filter === 'ended') return m.status !== 'open' || m.deadline <= now
-    return false
+    // Apply status filter
+    if (filter === 'open' && m.status !== 'open') return false
+    if (filter === 'resolved' && m.status !== 'resolved') return false
+    if (filter === 'p2p' && !Boolean(m.creatorAddress)) return false
+    if (filter === 'ended' && m.status === 'open' && m.deadline > now) return false
+    
+    // Apply category filter
+    if (category && m.category !== category) return false
+    
+    return true
   })
 
   if (filteredMarkets.length === 0) {

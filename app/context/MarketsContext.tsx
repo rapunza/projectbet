@@ -5,6 +5,9 @@ import { createContext, useContext, useState, useCallback, ReactNode, useEffect 
 // Platform type
 export type Platform = 'base' | 'twitter'
 
+// Category type
+export type Category = 'Politics' | 'Finance' | 'Sports' | 'Tech' | 'Entertainment' | 'Science' | 'Weather' | 'Other'
+
 // Market type
 export interface Market {
   id: number
@@ -20,6 +23,7 @@ export interface Market {
   yesPool: number
   noPool: number
   creatorAddress?: string
+  category?: Category
 }
 
 // User bet type
@@ -168,6 +172,7 @@ export function MarketsProvider({ children }: { children: ReactNode }) {
       yesPool: marketData.initialStake,
       noPool: 0,
       creatorAddress: marketData.creatorAddress,
+      category: marketData.category,
     }
     
     setMarkets(prev => [newMarket, ...prev])

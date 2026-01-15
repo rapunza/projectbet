@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { X, Copy, Check } from 'lucide-react'
+import { X, Copy, Check, AlertCircle } from 'lucide-react'
 import { supabase, UserProfile, UserStats } from '@/lib/supabase'
+import { SkeletonProfileCard } from './Skeletons'
 
 interface ProfileCardModalProps {
   userId: string
@@ -14,6 +15,7 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [stats, setStats] = useState<UserStats | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
   const fetchProfileData = async () => {
     try {
       setLoading(true)
+      setError(null)
 
       // Fetch user profile
       const { data: profileData, error: profileError } = await supabase
@@ -33,22 +36,23 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
         .eq('id', userId)
         .single()
 
-      if (profileError) throw profileError
+      if (profileError) throw new Error('Profile not found')
 
       // Fetch user stats
-      const { data: statsData, error: statsError } = await supabase
+      const { data: statsData } = await supabase
         .from('user_stats')
         .select('*')
         .eq('user_id', userId)
         .single()
 
-      if (!statsError) {
+      if (statsData) {
         setStats(statsData)
       }
 
       setProfile(profileData)
-    } catch (error) {
-      console.error('Error fetching profile:', error)
+    } catch (err) {
+      console.error('Error fetching profile:', err)
+      setError(err instanceof Error ? err.message : 'Failed to load profile')
     } finally {
       setLoading(false)
     }
@@ -76,7 +80,8 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 9999,
+        zIndex: 10000,
+        backdropFilter: 'blur(4px)',
       }}
       onClick={onClose}
     >
@@ -89,6 +94,7 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
           width: '90%',
           border: '1px solid var(--border)',
           position: 'relative',
+          boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)',
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -104,14 +110,24 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
             cursor: 'pointer',
             color: 'var(--text-secondary)',
             padding: '4px',
+            transition: 'color 0.2s',
           }}
+          onMouseOver={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+          onMouseOut={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
         >
           <X size={20} />
         </button>
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '40px 0' }}>
-            <p style={{ color: 'var(--text-secondary)' }}>Loading profile...</p>
+          <div style={{ padding: '12px' }}>
+            <SkeletonProfileCard />
+          </div>
+        ) : error ? (
+          <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+            <AlertCircle size={40} style={{ margin: '0 auto 12px', opacity: 0.5 }} />
+            <p style={{ color: 'var(--text-secondary)', margin: 0 }}>
+              {error}
+            </p>
           </div>
         ) : profile ? (
           <>
@@ -135,7 +151,7 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
                 {profile.display_name || profile.username}
               </h2>
               <p style={{ margin: '0 0 12px 0', color: 'var(--text-tertiary)', fontSize: '14px' }}>
-                {profile.username}
+                @{profile.username}
               </p>
 
               {/* Wallet address */}
@@ -192,7 +208,7 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
                     Points
                   </p>
                   <p style={{ margin: 0, fontSize: '20px', fontWeight: 700, color: 'var(--primary)' }}>
-                    {stats.points}
+                    {stats.points || 0}
                   </p>
                 </div>
                 <div style={{ background: 'var(--surface)', borderRadius: '12px', padding: '12px', textAlign: 'center' }}>
@@ -200,7 +216,7 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
                     Wins
                   </p>
                   <p style={{ margin: 0, fontSize: '20px', fontWeight: 700, color: 'var(--primary)' }}>
-                    {stats.wins}
+                    {stats.wins || 0}
                   </p>
                 </div>
                 <div style={{ background: 'var(--surface)', borderRadius: '12px', padding: '12px', textAlign: 'center' }}>
@@ -208,7 +224,7 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
                     Markets
                   </p>
                   <p style={{ margin: 0, fontSize: '20px', fontWeight: 700, color: 'var(--primary)' }}>
-                    {stats.markets_created}
+                    {stats.markets_created || 0}
                   </p>
                 </div>
                 <div style={{ background: 'var(--surface)', borderRadius: '12px', padding: '12px', textAlign: 'center' }}>
@@ -216,7 +232,7 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
                     Win Rate
                   </p>
                   <p style={{ margin: 0, fontSize: '20px', fontWeight: 700, color: 'var(--primary)' }}>
-                    {(stats.win_rate * 100).toFixed(1)}%
+                    {stats.win_rate ? (stats.win_rate * 100).toFixed(1) : 0}%
                   </p>
                 </div>
               </div>
@@ -267,11 +283,20 @@ export function ProfileCardModal({ userId, isOpen, onClose }: ProfileCardModalPr
             </div>
           </>
         ) : (
-          <div style={{ textAlign: 'center', padding: '40px 0' }}>
-            <p style={{ color: 'var(--text-secondary)' }}>Profile not found</p>
+          <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+            <AlertCircle size={40} style={{ margin: '0 auto 12px', opacity: 0.5 }} />
+            <p style={{ color: 'var(--text-secondary)', margin: 0 }}>Profile not found</p>
           </div>
         )}
       </div>
+
+      <style>{`
+        @keyframes spin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
     </div>
   )
 }

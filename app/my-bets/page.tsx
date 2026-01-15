@@ -23,7 +23,7 @@ export default function MyBets() {
           <div className="empty-state">
             <div className="empty-icon">🔐</div>
             <div className="empty-title">Connect Wallet</div>
-            <div className="empty-text">Connect your wallet to view your bets.</div>
+            <div className="empty-text">Connect your wallet to view your activity.</div>
             <button 
               className="btn btn-primary btn-press"
               onClick={() => connect({ connector: connectors[0] })}
@@ -56,7 +56,7 @@ export default function MyBets() {
       <Header />
       <main className="app-content with-bottom-nav">
         <div className="page-header">
-          <h1 className="page-title">Portfolio</h1>
+          <h1 className="page-title">Activity</h1>
         </div>
 
         {/* Portfolio Summary Card */}

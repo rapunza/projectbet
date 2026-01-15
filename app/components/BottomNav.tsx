@@ -57,7 +57,7 @@ export function BottomNav({ active }: BottomNavProps) {
         >
           {active === 'portfolio' && <span className="bottom-nav-indicator" />}
           <BarChart3 size={20} className="bottom-nav-icon" />
-          <span className="bottom-nav-label">Portfolio</span>
+          <span className="bottom-nav-label">Activity</span>
         </Link>
       </div>
     </nav>
