@@ -178,6 +178,8 @@ export default function ReferralsPage() {
       </div>
     )
   }
+
+  return (
     <div className="app">
       <Header />
 
