@@ -159,7 +159,7 @@ body {
   background: rgba(11, 11, 15, 0.9);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(31, 32, 40, 0.3);
-  padding: 12px var(--spacing-lg);
+  padding: 0 var(--spacing-lg);
 }
 
 .app-header-inner {
@@ -385,7 +385,7 @@ body {
 /* Desktop nav styles */
 .desktop-nav {
   display: none;
-  gap: 18px;
+  gap: 12px;
   align-items: center;
   margin-left: 24px;
 }
@@ -393,10 +393,15 @@ body {
 .desktop-nav-link {
   color: var(--text-secondary);
   text-decoration: none;
-  font-weight: 600;
-  padding: 8px 12px;
-  border-radius: 12px;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 8px;
   transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
 }
 
 .desktop-nav-link:hover {
@@ -404,10 +409,92 @@ body {
   background: rgba(27, 28, 35, 0.5);
 }
 
+.desktop-nav-link svg {
+  flex-shrink: 0;
+}
+
+.desktop-search-form {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(27, 28, 35, 0.4);
+  border: 1px solid rgba(31, 32, 40, 0.5);
+  border-radius: 8px;
+  padding: 6px 10px;
+  transition: all 0.15s;
+}
+
+.desktop-search-form:focus-within {
+  border-color: var(--primary);
+  background: rgba(27, 28, 35, 0.6);
+}
+
+.desktop-search-icon {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+.desktop-search-input {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 14px;
+  padding: 0;
+  width: 140px;
+  outline: none;
+}
+
+.desktop-search-input::placeholder {
+  color: var(--text-tertiary);
+}
+
 .desktop-nav-cta {
   background: var(--primary);
   color: var(--surface);
   box-shadow: 0 8px 30px rgba(200,255,68,0.12);
+}
+
+.desktop-actions {
+  display: none;
+  gap: 8px;
+  align-items: center;
+}
+
+.desktop-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(27, 28, 35, 0.4);
+  border: 1px solid rgba(31, 32, 40, 0.5);
+  color: var(--text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.desktop-icon-btn:hover {
+  background: rgba(27, 28, 35, 0.7);
+  color: var(--text-primary);
+  border-color: rgba(31, 32, 40, 0.8);
+}
+
+.desktop-create-btn {
+  background: var(--primary);
+  color: var(--surface);
+  border-color: var(--primary);
+}
+
+.desktop-create-btn:hover {
+  background: var(--primary);
+  color: var(--surface);
+  opacity: 0.9;
+}
+
+.theme-toggle-btn {
+  display: none;
 }
 
 .market-meta {
@@ -913,7 +1000,7 @@ body {
     max-width: 72rem;
     margin: 0 auto;
     align-items: center;
-    min-height: 84px;
+    min-height: 36px;
   }
 
   .app-header-inner {
@@ -930,7 +1017,7 @@ body {
   }
 
   .app-logo img {
-    height: 64px;
+    height: 32px;
   }
 
   /* Hide mobile bottom nav on desktop */
@@ -940,6 +1027,16 @@ body {
 
   /* show desktop nav */
   .desktop-nav {
+    display: flex;
+  }
+
+  /* show desktop actions */
+  .desktop-actions {
+    display: flex;
+  }
+
+  /* show theme toggle on desktop */
+  .theme-toggle-btn {
     display: flex;
   }
 
@@ -1848,4 +1945,273 @@ button, a, .btn-press {
   background: rgba(91, 234, 124, 0.1);
   border: 1px solid rgba(91, 234, 124, 0.3);
   color: var(--success);
+}
+/* ========== LEADERBOARD PAGE STYLES ========== */
+
+.leaderboard-card {
+  background: linear-gradient(135deg, rgba(200, 255, 68, 0.05) 0%, rgba(27, 28, 35, 0.3) 100%);
+}
+
+.leaderboard-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(31, 32, 40, 0.3);
+}
+
+.leaderboard-icon {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.leaderboard-subtitle {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 0;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 12px;
+  background: rgba(27, 28, 35, 0.3);
+  border: 1px solid rgba(31, 32, 40, 0.3);
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.leaderboard-item:hover {
+  background: rgba(27, 28, 35, 0.5);
+  border-color: rgba(200, 255, 68, 0.2);
+  transform: translateX(2px);
+}
+
+.leaderboard-item.rank-1 {
+  background: linear-gradient(135deg, rgba(200, 255, 68, 0.1) 0%, rgba(27, 28, 35, 0.3) 100%);
+  border-color: rgba(200, 255, 68, 0.3);
+}
+
+.leaderboard-item.rank-2 {
+  background: rgba(27, 28, 35, 0.35);
+  border-color: rgba(200, 200, 200, 0.2);
+}
+
+.leaderboard-item.rank-3 {
+  background: rgba(27, 28, 35, 0.32);
+  border-color: rgba(200, 150, 100, 0.2);
+}
+
+.leaderboard-rank-badge {
+  font-size: 24px;
+  font-weight: 800;
+  min-width: 32px;
+  text-align: center;
+}
+
+.leaderboard-user-info {
+  flex: 1;
+}
+
+.leaderboard-handle {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 15px;
+}
+
+.leaderboard-rank-text {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.leaderboard-points {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  justify-content: flex-end;
+}
+
+.points-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.points-label {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.leaderboard-actions {
+  margin-top: 20px;
+}
+
+.btn-full {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+/* ========== POINTS PAGE STYLES ========== */
+
+.points-card {
+  background: linear-gradient(135deg, rgba(200, 255, 68, 0.08) 0%, rgba(27, 28, 35, 0.3) 100%);
+}
+
+.points-display {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(200, 255, 68, 0.15) 0%, rgba(200, 255, 68, 0.05) 100%);
+  border: 1px solid rgba(200, 255, 68, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.points-display-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.points-label {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.points-amount {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.points-unit {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.points-icon {
+  width: 64px;
+  height: 64px;
+  color: var(--primary);
+  opacity: 0.15;
+  flex-shrink: 0;
+}
+
+.points-activity {
+  margin-top: 24px;
+}
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.activity-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.activity-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(27, 28, 35, 0.3);
+  border: 1px solid rgba(31, 32, 40, 0.3);
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.activity-item:hover {
+  background: rgba(27, 28, 35, 0.5);
+  border-color: rgba(31, 32, 40, 0.5);
+}
+
+.activity-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.icon-positive {
+  color: var(--success);
+}
+
+.icon-negative {
+  color: var(--error);
+}
+
+.activity-item-icon .icon-positive {
+  color: var(--success);
+}
+
+.activity-item-icon .icon-negative {
+  color: var(--error);
+}
+
+.activity-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-item-label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.activity-item-action {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.activity-item-amount {
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.activity-item-amount.positive {
+  color: var(--success);
+}
+
+.activity-item-amount.negative {
+  color: var(--error);
 }

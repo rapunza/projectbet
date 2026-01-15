@@ -3,6 +3,7 @@
 import { Header } from '../components/Header'
 import { BottomNav } from '../components/BottomNav'
 import Link from 'next/link'
+import { Star, TrendingUp, TrendingDown } from 'lucide-react'
 
 export default function PointsPage() {
   const myPoints = 72
@@ -22,25 +23,48 @@ export default function PointsPage() {
           <h1 className="page-title">My Points</h1>
         </div>
 
-        <div className="card">
+        <div className="card points-card">
           <div className="card-body">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <div>
-                <div style={{ fontSize: '13px', color: 'var(--text-tertiary)' }}>Current Points</div>
-                <div style={{ fontSize: '28px', fontWeight: 800 }}>{myPoints}</div>
+            {/* Points Display */}
+            <div className="points-display">
+              <div className="points-display-content">
+                <div className="points-label">Current Balance</div>
+                <div className="points-amount">{myPoints}</div>
+                <div className="points-unit">Points</div>
               </div>
-              <Link href="/leaderboard" className="btn btn-secondary">View Leaderboard</Link>
+              <Star className="points-icon" />
             </div>
 
-            <div style={{ marginTop: '8px', color: 'var(--text-tertiary)', marginBottom: '8px' }}>Recent activity</div>
-            <ul className="activity-list">
-              {recent.map(r => (
-                <li key={r.id} className="activity-item">
-                  <div>{r.label}</div>
-                  <div style={{ fontWeight: 700 }}>{r.amount > 0 ? `+${r.amount}` : r.amount}</div>
-                </li>
-              ))}
-            </ul>
+            {/* Recent Activity */}
+            <div className="points-activity">
+              <div className="activity-header">
+                <h3 className="activity-title">Recent Activity</h3>
+                <Link href="/leaderboard" className="btn btn-secondary btn-sm">
+                  View Leaderboard
+                </Link>
+              </div>
+
+              <ul className="activity-list">
+                {recent.map((item) => (
+                  <li key={item.id} className="activity-item">
+                    <div className="activity-item-icon">
+                      {item.amount > 0 ? (
+                        <TrendingUp size={16} className="icon-positive" />
+                      ) : (
+                        <TrendingDown size={16} className="icon-negative" />
+                      )}
+                    </div>
+                    <div className="activity-item-content">
+                      <div className="activity-item-label">{item.label}</div>
+                      <div className="activity-item-action">{item.action}</div>
+                    </div>
+                    <div className={`activity-item-amount ${item.amount > 0 ? 'positive' : 'negative'}`}>
+                      {item.amount > 0 ? `+${item.amount}` : item.amount}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </main>

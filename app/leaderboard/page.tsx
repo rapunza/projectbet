@@ -3,6 +3,7 @@
 import { Header } from '../components/Header'
 import { BottomNav } from '../components/BottomNav'
 import Link from 'next/link'
+import { Trophy, Medal } from 'lucide-react'
 
 export default function LeaderboardPage() {
   const entries = [
@@ -12,6 +13,13 @@ export default function LeaderboardPage() {
     { rank: 4, handle: '@dan', points: 240 },
     { rank: 5, handle: '@erin', points: 210 },
   ]
+
+  const getMedalIcon = (rank: number) => {
+    if (rank === 1) return '🥇'
+    if (rank === 2) return '🥈'
+    if (rank === 3) return '🥉'
+    return `${rank}`
+  }
 
   return (
     <div className="app">
@@ -23,35 +31,33 @@ export default function LeaderboardPage() {
           <h1 className="page-title">Leaderboard</h1>
         </div>
 
-        <div className="card">
+        <div className="card leaderboard-card">
           <div className="card-body">
-            <p style={{ marginBottom: '12px', color: 'var(--text-tertiary)' }}>
-              Top users by points — friendly leaderboard UI for now.
-            </p>
-
-            <div style={{ width: '100%', overflowX: 'auto' }}>
-              <table className="leaderboard-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>User</th>
-                    <th>Points</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {entries.map(e => (
-                    <tr key={e.rank}>
-                      <td>{e.rank}</td>
-                      <td>{e.handle}</td>
-                      <td style={{ fontWeight: 700 }}>{e.points}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="leaderboard-header">
+              <Trophy size={24} className="leaderboard-icon" />
+              <p className="leaderboard-subtitle">Top users by points</p>
             </div>
 
-            <div style={{ marginTop: '16px', textAlign: 'center' }}>
-              <Link href="/points" className="btn btn-secondary">
+            <div className="leaderboard-list">
+              {entries.map((entry) => (
+                <div key={entry.rank} className={`leaderboard-item rank-${entry.rank}`}>
+                  <div className="leaderboard-rank-badge">
+                    {getMedalIcon(entry.rank)}
+                  </div>
+                  <div className="leaderboard-user-info">
+                    <div className="leaderboard-handle">{entry.handle}</div>
+                    <div className="leaderboard-rank-text">Rank #{entry.rank}</div>
+                  </div>
+                  <div className="leaderboard-points">
+                    <span className="points-value">{entry.points}</span>
+                    <span className="points-label">pts</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="leaderboard-actions">
+              <Link href="/points" className="btn btn-secondary btn-full">
                 View My Points
               </Link>
             </div>

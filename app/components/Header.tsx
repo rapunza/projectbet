@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { useMiniApp } from '../hooks/useMiniApp'
+import { Flame, Search, Trophy, Star, Zap, Wallet, User, Moon, Sun } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export function Header() {
   const { address, isConnected } = useAccount()
@@ -11,6 +13,9 @@ export function Header() {
   const { disconnect } = useDisconnect()
   const { isInMiniApp, isReady, user } = useMiniApp()
   const [showWalletOptions, setShowWalletOptions] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [isDark, setIsDark] = useState(true)
+  const router = useRouter()
 
   // Auto-connect in mini app context
   useEffect(() => {
@@ -30,6 +35,18 @@ export function Header() {
     setShowWalletOptions(false)
   }
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
+    }
+  }
+
+  const toggleTheme = () => {
+    setIsDark(!isDark)
+    document.documentElement.setAttribute('data-theme', !isDark ? 'light' : 'dark')
+  }
+
   return (
     <header className="app-header">
       <div className="app-header-inner">
@@ -42,14 +59,31 @@ export function Header() {
 
         {/* Desktop topbar menu (visible on larger screens) */}
         <nav className="desktop-nav">
-          <Link href="/" className="desktop-nav-link">Challenges</Link>
-          <Link href="/search" className="desktop-nav-link">Search</Link>
-          <Link href="/leaderboard" className="desktop-nav-link">Leaderboard</Link>
-          <Link href="/points" className="desktop-nav-link">Points</Link>
-          <Link href="/create" className="desktop-nav-link desktop-nav-cta">Create</Link>
-          <Link href="/my-bets" className="desktop-nav-link">Portfolio</Link>
-          <Link href="/profile" className="desktop-nav-link">Profile</Link>
+          <form onSubmit={handleSearch} className="desktop-search-form">
+            <Search size={16} className="desktop-search-icon" />
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="desktop-search-input"
+            />
+          </form>
+          <Link href="/" className="desktop-nav-link"><Flame size={16} /><span>Challenges</span></Link>
+          <Link href="/leaderboard" className="desktop-nav-link"><Trophy size={16} /><span>Leaderboard</span></Link>
+          <Link href="/points" className="desktop-nav-link"><Star size={16} /><span>Points</span></Link>
+          <Link href="/my-bets" className="desktop-nav-link"><Wallet size={16} /><span>Portfolio</span></Link>
         </nav>
+
+        {/* Desktop action buttons (icon only) */}
+        <div className="desktop-actions">
+          <Link href="/create" className="desktop-icon-btn desktop-create-btn" title="Create">
+            <Zap size={18} />
+          </Link>
+          <Link href="/profile" className="desktop-icon-btn" title="Profile">
+            <User size={18} />
+          </Link>
+        </div>
 
         {isConnected ? (
           <button className="wallet-btn btn-press" onClick={() => disconnect()}>
@@ -66,7 +100,14 @@ export function Header() {
             <span>{displayName}</span>
           </button>
         ) : (
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <button
+              className="desktop-icon-btn theme-toggle-btn"
+              onClick={toggleTheme}
+              title={isDark ? 'Light mode' : 'Dark mode'}
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             <button
               className="btn btn-primary btn-sm btn-press"
               onClick={() => setShowWalletOptions(!showWalletOptions)}
