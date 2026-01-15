@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { useMiniApp } from '../hooks/useMiniApp'
-import { Flame, Search, Trophy, Star, Zap, Wallet, User, Moon, Sun } from 'lucide-react'
+import { Flame, Search, Trophy, Star, Zap, Wallet, User, Moon, Sun, LogOut, FileText, BarChart3 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 export function Header() {
@@ -13,6 +13,7 @@ export function Header() {
   const { disconnect } = useDisconnect()
   const { isInMiniApp, isReady, user } = useMiniApp()
   const [showWalletOptions, setShowWalletOptions] = useState(false)
+  const [showProfileMenu, setShowProfileMenu] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [isDark, setIsDark] = useState(true)
   const router = useRouter()
@@ -72,7 +73,7 @@ export function Header() {
           <Link href="/" className="desktop-nav-link"><Flame size={16} /><span>Challenges</span></Link>
           <Link href="/leaderboard" className="desktop-nav-link"><Trophy size={16} /><span>Leaderboard</span></Link>
           <Link href="/points" className="desktop-nav-link"><Star size={16} /><span>Points</span></Link>
-          <Link href="/my-bets" className="desktop-nav-link"><Wallet size={16} /><span>Portfolio</span></Link>
+          {isConnected && <Link href="/profile/portfolio" className="desktop-nav-link"><Wallet size={16} /><span>Activity</span></Link>}
         </nav>
 
         {/* Desktop action buttons (icon only) */}
@@ -83,14 +84,116 @@ export function Header() {
             </Link>
           )}
           {isConnected && (
-            <Link href="/referrals" className="desktop-icon-btn" title="Referrals">
-              <Flame size={18} />
-            </Link>
-          )}
-          {isConnected && (
-            <Link href="/settings" className="desktop-icon-btn" title="Settings">
-              <User size={18} />
-            </Link>
+            <div style={{ position: 'relative' }}>
+              <button 
+                className="desktop-icon-btn" 
+                title="Profile Menu"
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
+              >
+                <User size={18} />
+              </button>
+              {showProfileMenu && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  right: 0,
+                  marginTop: '8px',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '12px',
+                  padding: '8px',
+                  minWidth: '180px',
+                  zIndex: 100,
+                }}>
+                  <Link 
+                    href="/referrals"
+                    onClick={() => setShowProfileMenu(false)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      color: 'var(--text-primary)',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.background = 'var(--bg-secondary)'}
+                    onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <Flame size={16} />
+                    <span>Referrals</span>
+                  </Link>
+                  <Link 
+                    href="/profile/portfolio"
+                    onClick={() => setShowProfileMenu(false)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      color: 'var(--text-primary)',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.background = 'var(--bg-secondary)'}
+                    onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <BarChart3 size={16} />
+                    <span>Activity</span>
+                  </Link>
+                  <Link 
+                    href="/profile"
+                    onClick={() => setShowProfileMenu(false)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      color: 'var(--text-primary)',
+                      textDecoration: 'none',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.background = 'var(--bg-secondary)'}
+                    onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <FileText size={16} />
+                    <span>Edit Profile</span>
+                  </Link>
+                  <div style={{ borderTop: '1px solid var(--border)', margin: '8px 0' }} />
+                  <button 
+                    onClick={() => {
+                      disconnect()
+                      setShowProfileMenu(false)
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      width: '100%',
+                      padding: '10px 12px',
+                      borderRadius: '8px',
+                      color: 'var(--text-primary)',
+                      background: 'transparent',
+                      border: 'none',
+                      textAlign: 'left',
+                      fontSize: '14px',
+                      cursor: 'pointer',
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.background = 'var(--bg-secondary)'}
+                    onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+                  >
+                    <LogOut size={16} />
+                    <span>Log Out</span>
+                  </button>
+                </div>
+              )}
+            </div>
           )}
         </div>
 

@@ -52,7 +52,7 @@ export function BottomNav({ active }: BottomNavProps) {
         </Link>
 
         <Link 
-          href="/my-bets" 
+          href="/profile/portfolio" 
           className={`bottom-nav-item btn-press ${active === 'portfolio' ? 'active' : ''}`}
         >
           {active === 'portfolio' && <span className="bottom-nav-indicator" />}

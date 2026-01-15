@@ -47,10 +47,116 @@ export interface PortfolioHistoryEntry {
 }
 
 // Initial demo markets - Empty for production
-const INITIAL_MARKETS: Market[] = []
+const INITIAL_MARKETS: Market[] = [
+  {
+    id: 1,
+    question: 'Will Bitcoin reach $50,000 by end of January?',
+    postUrl: 'https://twitter.com/example/1',
+    authorHandle: '@CryptoTrader',
+    postText: 'Bitcoin is on a bull run. Will it hit $50k this month?',
+    postedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+    platform: 'twitter',
+    deadline: Date.now() + 15 * 24 * 60 * 60 * 1000,
+    status: 'open',
+    outcomeYes: true,
+    yesPool: 5000,
+    noPool: 3200,
+    category: 'Finance',
+  },
+  {
+    id: 2,
+    question: 'Will the Lakers win the championship this season?',
+    postUrl: 'https://twitter.com/example/2',
+    authorHandle: '@SportsGuy',
+    postText: 'Lakers looking strong. Championship run incoming?',
+    postedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+    platform: 'twitter',
+    deadline: Date.now() + 90 * 24 * 60 * 60 * 1000,
+    status: 'open',
+    outcomeYes: false,
+    yesPool: 8500,
+    noPool: 6200,
+    category: 'Sports',
+  },
+  {
+    id: 3,
+    question: 'Will the Fed cut interest rates in March?',
+    postUrl: 'https://twitter.com/example/3',
+    authorHandle: '@EconAnalyst',
+    postText: 'Markets pricing in a March rate cut. Agree?',
+    postedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+    platform: 'twitter',
+    deadline: Date.now() + 45 * 24 * 60 * 60 * 1000,
+    status: 'open',
+    outcomeYes: true,
+    yesPool: 3200,
+    noPool: 4100,
+    category: 'Finance',
+  },
+  {
+    id: 4,
+    question: 'Will AI pass a PhD exam this year?',
+    postUrl: 'https://twitter.com/example/4',
+    authorHandle: '@TechVisionaryX',
+    postText: 'AI is advancing rapidly. Will it pass a PhD exam?',
+    postedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+    platform: 'twitter',
+    deadline: Date.now() + 330 * 24 * 60 * 60 * 1000,
+    status: 'open',
+    outcomeYes: true,
+    yesPool: 7800,
+    noPool: 5400,
+    category: 'Tech',
+  },
+  {
+    id: 5,
+    question: 'Will Taylor Swift release a new album this year?',
+    postUrl: 'https://twitter.com/example/5',
+    authorHandle: '@PopCultureFan',
+    postText: 'Taylor always surprises us. New album incoming?',
+    postedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    platform: 'twitter',
+    deadline: Date.now() + 330 * 24 * 60 * 60 * 1000,
+    status: 'open',
+    outcomeYes: true,
+    yesPool: 4500,
+    noPool: 3800,
+    category: 'Entertainment',
+  },
+  {
+    id: 6,
+    question: 'Will it snow more than 10 inches in NYC this winter?',
+    postUrl: 'https://twitter.com/example/6',
+    authorHandle: '@WeatherWatcher',
+    postText: 'Winter is here. Big snowstorm coming?',
+    postedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+    platform: 'twitter',
+    deadline: Date.now() + 60 * 24 * 60 * 60 * 1000,
+    status: 'open',
+    outcomeYes: false,
+    yesPool: 2100,
+    noPool: 2800,
+    category: 'Weather',
+  },
+]
 
 // Initial demo user bets - Empty for production
-const INITIAL_BETS: UserBet[] = []
+const INITIAL_BETS: UserBet[] = [
+  {
+    marketId: 1,
+    question: 'Will Bitcoin reach $50,000 by end of January?',
+    side: 'yes',
+    stake: 100,
+    status: 'open',
+  },
+  {
+    marketId: 2,
+    question: 'Will the Lakers win the championship this season?',
+    side: 'no',
+    stake: 50,
+    status: 'open',
+  },
+]
 
 interface MarketsContextType {
   markets: Market[]

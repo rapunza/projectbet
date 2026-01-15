@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Providers } from './providers'
-import { TestnetBanner } from './components/TestnetBanner'
 import { SplashScreen } from './components/SplashScreen'
 import '@coinbase/onchainkit/styles.css'
 import './globals.css'
@@ -33,7 +32,6 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <SplashScreen />
-        <TestnetBanner />
         <div style={{ paddingTop: '28px' }}>
           <Providers>{children}</Providers>
         </div>
