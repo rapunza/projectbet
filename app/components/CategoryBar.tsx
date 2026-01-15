@@ -21,126 +21,63 @@ type CategoryBarProps = {
 
 export function CategoryBar({ categories, selectedCategory, onSelect, className = "" }: CategoryBarProps) {
   const gradientMap: { [key: string]: string } = {
-    'All': 'from-blue-500 via-purple-500 to-pink-500',
-    'Politics': 'from-blue-600 to-blue-400',
-    'Finance': 'from-green-600 to-emerald-400',
-    'Sports': 'from-red-600 to-orange-400',
-    'Tech': 'from-purple-600 to-pink-400',
-    'Entertainment': 'from-yellow-600 to-orange-400',
-    'Science': 'from-cyan-600 to-blue-400',
-    'Weather': 'from-sky-600 to-cyan-400',
-    'Other': 'from-gray-600 to-gray-400',
+    'Create': 'from-green-400 to-emerald-500',
+    'All': 'from-blue-400 to-purple-500',
+    'Sports': 'from-green-400 to-blue-500',
+    'Gaming': 'from-gray-400 to-gray-600',
+    'Crypto': 'from-yellow-400 to-orange-500',
+    'Trading': 'from-yellow-400 to-orange-500',
+    'Music': 'from-blue-400 to-purple-500',
+    'Entertainment': 'from-pink-400 to-red-500',
+    'Politics': 'from-green-400 to-teal-500',
+    'Tech': 'from-purple-400 to-pink-500',
+    'Finance': 'from-green-400 to-emerald-500',
   }
 
   return (
-    <div className={`w-full flex justify-center py-4 ${className}`}>
-      <div className="w-full md:w-auto overflow-x-auto md:overflow-visible overflow-y-hidden px-2 no-scrollbar md:no-scrollbar-none">
-        <div className="flex gap-6 justify-center items-start">
+    <div className={`w-full py-0 ${className}`}>
+      <div className="flex justify-center overflow-x-auto md:overflow-visible [&::-webkit-scrollbar]:h-0.5 [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-white/20">
+        <div className="flex gap-0.5">
           {categories.map((category) => {
             const id = category.id || category.value || category.label
             const isSelected = selectedCategory === id
-            const gradient = gradientMap[category.label] || 'from-gray-600 to-gray-400'
+            const gradient = gradientMap[category.label] || 'from-gray-400 to-gray-600'
+
+            let imageSrc = category.icon || ''
+            if (!imageSrc.startsWith('/')) {
+              imageSrc = `/assets/${imageSrc}`
+            }
 
             return (
               <button
                 type="button"
                 key={id}
                 onClick={() => onSelect(id)}
-                className="flex flex-col items-center gap-2 flex-shrink-0 focus:outline-none"
+                className="flex-shrink-0 focus:outline-none transition-transform hover:scale-105"
               >
-                {/* Instagram Story Ring */}
-                <div className="relative w-20 h-20 flex items-center justify-center">
-                  {/* Outer gradient ring */}
-                  <div
-                    className={`
-                      absolute inset-0 rounded-full
-                      bg-gradient-to-br ${gradient}
-                      transition-all duration-300 ease-out
-                      ${isSelected ? 'scale-100' : 'scale-95'}
-                    `}
-                  />
-
-                  {/* Middle white spacing */}
-                  <div
-                    className={`
-                      absolute inset-1 rounded-full
-                      bg-slate-950
-                      transition-all duration-300
-                    `}
-                  />
-
-                  {/* Inner icon circle */}
-                  <div
-                    className={`
-                      absolute inset-3 rounded-full
-                      bg-gradient-to-br ${gradient}
-                      flex items-center justify-center
-                      transition-all duration-300
-                      ${isSelected ? 'scale-100' : 'scale-100'}
-                    `}
-                  />
-
-                  {/* Icon container */}
-                  <div className="absolute inset-4 rounded-full bg-slate-950 flex items-center justify-center">
-                    {category.icon && (
-                      <span className="text-3xl select-none">
-                        {category.icon}
-                      </span>
+                <div className="w-6 h-6 rounded-full relative transition-all duration-300">
+                  <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${gradient}`} />
+                  
+                  <div className={`
+                    absolute inset-[0.5px] rounded-full flex items-center justify-center 
+                    bg-slate-50 dark:bg-slate-900
+                    ${isSelected ? 'scale-105' : 'scale-100'} 
+                    transition-all duration-300
+                  `}>
+                    {imageSrc && (
+                      <img 
+                        src={imageSrc} 
+                        alt={category.label} 
+                        className="w-3 h-3 object-contain"
+                      />
                     )}
                   </div>
-
-                  {/* Selection indicator - glow */}
-                  {isSelected && (
-                    <>
-                      <div
-                        className={`
-                          absolute -inset-1 rounded-full
-                          bg-gradient-to-br ${gradient}
-                          opacity-20 blur-lg
-                          animate-pulse
-                        `}
-                      />
-                      <div
-                        className={`
-                          absolute inset-0 rounded-full
-                          border-2 border-white/30
-                          animate-pulse
-                        `}
-                      />
-                    </>
-                  )}
                 </div>
-
-                {/* Label */}
-                <p
-                  className={`
-                    text-xs font-medium text-center leading-tight max-w-[60px]
-                    transition-all duration-300 whitespace-normal
-                    ${isSelected ? 'text-white font-semibold' : 'text-white/50'}
-                  `}
-                >
-                  {category.label}
-                </p>
               </button>
             )
           })}
         </div>
       </div>
-
-      <style jsx>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        @media (min-width: 768px) {
-          .no-scrollbar-none::-webkit-scrollbar {
-            display: none !important;
-          }
-        }
-      `}</style>
     </div>
   )
 }

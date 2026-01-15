@@ -38,8 +38,8 @@
   --radius: 0.625rem;
 
   /* Legacy Colors - Semantic */
-  --primary-lime: #C8FF44;
   --primary-variant: #B2F028;
+  --primary-button: #7440ff;
   --success: #5BEA7C;
   --warning: #F2C94C;
   --error: #FF5C5C;
@@ -129,19 +129,6 @@ body {
 
 .btn-press:active {
   transform: scale(0.97);
-}
-
-/* Glow Effects */
-.glow-primary {
-  box-shadow: 0 0 20px rgba(200, 255, 68, 0.25), 0 0 40px rgba(200, 255, 68, 0.1);
-}
-
-.glow-success {
-  box-shadow: 0 0 15px rgba(91, 234, 124, 0.3);
-}
-
-.glow-error {
-  box-shadow: 0 0 15px rgba(255, 92, 92, 0.3);
 }
 
 /* Animations */
@@ -263,20 +250,22 @@ body {
   display: flex;
   gap: var(--spacing-xs);
   margin-bottom: var(--spacing-md);
+  justify-content: center;
 }
 
 .nav-tab {
-  flex: 1;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 6px 12px;
   text-align: center;
   color: var(--text-tertiary);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   border: none;
   background: none;
   cursor: pointer;
   border-radius: var(--radius-button);
   transition: all 0.2s;
+  white-space: nowrap;
+  min-width: auto;
 }
 
 .nav-tab:hover {
@@ -285,10 +274,9 @@ body {
 }
 
 .nav-tab.active {
-  color: var(--surface);
-  background: var(--primary);
+  color: #ffffff;
+  background: #7440ff;
   font-weight: 600;
-  box-shadow: 0 0 20px rgba(200, 255, 68, 0.3);
 }
 
 .category-tabs {
@@ -313,15 +301,13 @@ body {
 }
 
 .btn-primary {
-  background: var(--primary);
-  color: var(--surface);
-  box-shadow: 0 0 20px rgba(200, 255, 68, 0.25), 0 0 40px rgba(200, 255, 68, 0.1);
+  background: #7440ff;
+  color: #ffffff;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--primary-variant);
+  background: #6030dd;
   transform: scale(1.02);
-  box-shadow: 0 0 25px rgba(200, 255, 68, 0.35), 0 0 50px rgba(200, 255, 68, 0.15);
 }
 
 .btn-secondary {
@@ -343,7 +329,6 @@ body {
 
 .btn-success:hover:not(:disabled) {
   background: rgba(91, 234, 124, 0.25);
-  box-shadow: 0 0 15px rgba(91, 234, 124, 0.3);
 }
 
 .btn-error {
@@ -354,7 +339,6 @@ body {
 
 .btn-error:hover:not(:disabled) {
   background: rgba(255, 92, 92, 0.25);
-  box-shadow: 0 0 15px rgba(255, 92, 92, 0.3);
 }
 
 .btn-full {
@@ -1164,17 +1148,6 @@ button, a, .btn-press {
   overflow: hidden;
 }
 
-/* Decorative glow in corner */
-.portfolio-header::before {
-  content: '';
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(200, 255, 68, 0.08), transparent 70%);
-  pointer-events: none;
-}
 
 .portfolio-header__label {
   display: flex;
@@ -1418,17 +1391,6 @@ button, a, .btn-press {
   overflow: hidden;
 }
 
-/* Decorative glow */
-.portfolio-summary::before {
-  content: '';
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(200, 255, 68, 0.08), transparent 70%);
-  pointer-events: none;
-}
 
 .portfolio-summary__stats {
   display: flex;

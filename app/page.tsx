@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Header } from './components/Header'
 import { BottomNav } from './components/BottomNav'
+import { CategoryBar } from './components/CategoryBar'
 import { MarketList } from './components/MarketList'
 import { Category } from './context/MarketsContext'
 
@@ -10,11 +11,28 @@ export default function Home() {
   const [filter, setFilter] = useState<'open' | 'resolved' | 'p2p' | 'ended'>('open')
   const [category, setCategory] = useState<Category | 'All'>('All')
 
+  const categoryItems = [
+    { label: 'Sports', icon: '/assets/sportscon.svg' },
+    { label: 'Gaming', icon: '/assets/gamingsvg.svg' },
+    { label: 'Crypto', icon: '/assets/cryptosvg.svg' },
+    { label: 'Trading', icon: '/assets/forex.png' },
+    { label: 'Music', icon: '/assets/musicsvg.svg' },
+    { label: 'Entertainment', icon: '/assets/popcorn.svg' },
+    { label: 'Politics', icon: '/assets/poltiii.svg' },
+  ]
+
   return (
     <div className="app">
       <Header />
       
       <main className="app-content with-bottom-nav">
+
+        {/* Category Bar */}
+        <CategoryBar 
+          categories={categoryItems} 
+          selectedCategory={category}
+          onSelect={(selected) => setCategory(selected as Category | 'All')}
+        />
 
         {/* Status Tabs */}
         <div className="nav-tabs animate-fade-in">

@@ -34,16 +34,21 @@ export function MarketList({ filter, category }: MarketListProps) {
     return (
       <div className="empty-state">
         <div className="empty-icon">📭</div>
-        <div className="empty-title">No markets yet</div>
+        <div className="empty-title">No challenges yet</div>
         <div className="empty-text">
           {filter === 'open' 
-            ? 'Be the first to create a market!'
+            ? 'Be the first to create a challenge!'
             : filter === 'p2p'
-              ? 'No P2P markets yet.'
+              ? 'No P2P challenges yet.'
               : filter === 'ended'
-                ? 'No ended markets to show.'
-                : 'No resolved markets to show.'}
+                ? 'No ended challenges to show.'
+                : 'No resolved challenges to show.'}
         </div>
+        {filter === 'open' && (
+          <Link href="/create" className="btn btn-primary" style={{ marginTop: '14px' }}>
+            Challenge a friend
+          </Link>
+        )}
       </div>
     )
   }

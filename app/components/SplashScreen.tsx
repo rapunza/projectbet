@@ -4,16 +4,35 @@ import React, { useEffect, useState } from 'react'
 
 export function SplashScreen() {
   const [isVisible, setIsVisible] = useState(true)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
+    // Check if mobile on mount
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
+    // Only show splash screen on mobile
+    if (!isMobile) {
+      setIsVisible(false)
+      return
+    }
+
     const timer = setTimeout(() => {
       setIsVisible(false)
     }, 1800)
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('resize', checkMobile)
+    }
+  }, [isMobile])
 
-  if (!isVisible) return null
+  // Don't render at all on desktop
+  if (!isMobile || !isVisible) return null
 
   return (
     <div
@@ -21,7 +40,6 @@ export function SplashScreen() {
         fixed inset-0 z-[9999]
         flex flex-col items-center justify-center gap-4
         bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950
-        md:hidden
         transition-opacity duration-300
         ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
       `}
