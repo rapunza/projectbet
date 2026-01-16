@@ -14,6 +14,8 @@ export interface Market {
   question: string
   postUrl: string
   authorHandle: string
+  authorAvatar?: string
+  coverImage?: string
   postText: string
   postedAt?: string
   platform: Platform
@@ -53,6 +55,8 @@ const INITIAL_MARKETS: Market[] = [
     question: 'Will Bitcoin reach $50,000 by end of January?',
     postUrl: 'https://twitter.com/example/1',
     authorHandle: '@CryptoTrader',
+    authorAvatar: 'https://i.pravatar.cc/40?img=1',
+    coverImage: 'https://images.unsplash.com/photo-1641432674062-f4a76f17d1f6?w=400&h=200&fit=crop',
     postText: 'Bitcoin is on a bull run. Will it hit $50k this month?',
     postedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
     platform: 'twitter',
@@ -68,6 +72,8 @@ const INITIAL_MARKETS: Market[] = [
     question: 'Will the Lakers win the championship this season?',
     postUrl: 'https://twitter.com/example/2',
     authorHandle: '@SportsGuy',
+    authorAvatar: 'https://i.pravatar.cc/40?img=2',
+    coverImage: 'https://images.unsplash.com/photo-1546519638-68711109dc45?w=400&h=200&fit=crop',
     postText: 'Lakers looking strong. Championship run incoming?',
     postedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
     platform: 'twitter',
@@ -83,6 +89,8 @@ const INITIAL_MARKETS: Market[] = [
     question: 'Will the Fed cut interest rates in March?',
     postUrl: 'https://twitter.com/example/3',
     authorHandle: '@EconAnalyst',
+    authorAvatar: 'https://i.pravatar.cc/40?img=3',
+    coverImage: 'https://images.unsplash.com/photo-1611974260368-0851be6e597f?w=400&h=200&fit=crop',
     postText: 'Markets pricing in a March rate cut. Agree?',
     postedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
     platform: 'twitter',
@@ -98,6 +106,8 @@ const INITIAL_MARKETS: Market[] = [
     question: 'Will AI pass a PhD exam this year?',
     postUrl: 'https://twitter.com/example/4',
     authorHandle: '@TechVisionaryX',
+    authorAvatar: 'https://i.pravatar.cc/40?img=4',
+    coverImage: 'https://images.unsplash.com/photo-1677442d019cecf8eda60537b9b5b94bcc4d3e34?w=400&h=200&fit=crop',
     postText: 'AI is advancing rapidly. Will it pass a PhD exam?',
     postedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
     platform: 'twitter',
@@ -113,6 +123,8 @@ const INITIAL_MARKETS: Market[] = [
     question: 'Will Taylor Swift release a new album this year?',
     postUrl: 'https://twitter.com/example/5',
     authorHandle: '@PopCultureFan',
+    authorAvatar: 'https://i.pravatar.cc/40?img=5',
+    coverImage: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=200&fit=crop',
     postText: 'Taylor always surprises us. New album incoming?',
     postedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
     platform: 'twitter',
@@ -128,6 +140,8 @@ const INITIAL_MARKETS: Market[] = [
     question: 'Will it snow more than 10 inches in NYC this winter?',
     postUrl: 'https://twitter.com/example/6',
     authorHandle: '@WeatherWatcher',
+    authorAvatar: 'https://i.pravatar.cc/40?img=6',
+    coverImage: 'https://images.unsplash.com/photo-1510694712202-4c51b37152d5?w=400&h=200&fit=crop',
     postText: 'Winter is here. Big snowstorm coming?',
     postedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
     platform: 'twitter',

@@ -54,7 +54,7 @@ export function MarketList({ filter, category }: MarketListProps) {
   }
 
   return (
-    <div>
+    <div className="market-list-grid">
       {filteredMarkets.map((market, index) => (
         <MarketCard key={market.id} market={market} index={index} />
       ))}
@@ -84,12 +84,12 @@ export function MarketCard({ market, index = 0 }: { market: Market; index?: numb
     const remainingHours = hours % 24
 
     if (days > 0) {
-      return `${days}d ${remainingHours}h`
+      return `${days}d`
     } else if (hours > 0) {
-      return `${hours}h left`
+      return `${hours}h`
     } else {
       const minutes = Math.floor(timeLeft / (60 * 1000))
-      return `${minutes}m left`
+      return `${minutes}m`
     }
   }
 
@@ -98,47 +98,70 @@ export function MarketCard({ market, index = 0 }: { market: Market; index?: numb
   return (
     <Link href={`/market/${market.id}`} style={{ textDecoration: 'none' }}>
       <div className="card market-card btn-press animate-slide-up" style={{ animationDelay: `${Math.min(index, 4) * 50}ms` }}>
-        {/* Post Preview Section */}
-        <PostPreviewCard
-          postUrl={market.postUrl}
-          authorHandle={market.authorHandle}
-          postText={market.postText}
-          postedAt={market.postedAt}
-          platform={market.platform}
-          compact
-        />
-
-        <div className="card-body">
-          {/* Status */}
-          <div className={`market-status ${market.status}`}>
-            {market.status === 'open' && '🟢 OPEN'}
-            {market.status === 'locked' && '🔒 LOCKED'}
-            {market.status === 'resolved' && (market.outcomeYes ? '✅ YES' : '❌ NO')}
+        
+        {/* Header Section */}
+        <div className="market-card__header">
+          <div className="market-card__title-section">
+            {/* Cover Image */}
+            <div className="market-card__cover-image">
+              <img src={market.coverImage || '/assets/bantahblue.svg'} alt={market.question} />
+            </div>
+            <div className="market-card__title-info">
+              <h3 className="market-card__title">{market.question}</h3>
+              <div className="market-card__stake-label">
+                {formatPool(totalPool)} USDC STAKE
+              </div>
+            </div>
           </div>
 
-          {/* Question */}
-          <h3 className="market-question">{market.question}</h3>
-
-          {/* Meta */}
-          <div className="market-meta">
-            <span>💰 {formatPool(totalPool)} USDC</span>
-            {market.status === 'open' && (
-              <span style={{ color: isExpired ? 'var(--warning)' : 'inherit' }}>
-                ⏰ {timeLeftDisplay}
-              </span>
-            )}
-          </div>
-
-          {/* Odds Bar */}
-          <div className="odds-bar">
-            <div className="odds-yes" style={{ width: `${Math.max(yesPercent, 15)}%` }}>
-              YES {yesPercent}%
-            </div>
-            <div className="odds-no" style={{ width: `${Math.max(noPercent, 15)}%` }}>
-              NO {noPercent}%
-            </div>
+          <div className="market-card__badges">
+            {market.status === 'open' && <span className="badge badge--open">🟢 Open</span>}
+            {market.creatorAddress && <span className="badge badge--p2p">P2P</span>}
+            <button 
+              className="market-card__share-btn"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+              }}
+              type="button"
+            >
+              ⤴️
+            </button>
           </div>
         </div>
+
+        {/* VS Section with Pill Buttons */}
+        <div className="market-card__vs-section">
+          <button className="market-card__option-btn market-card__option-btn--yes">
+            <span className="market-card__option-label">YES</span>
+            <span className="market-card__option-percent">{yesPercent}%</span>
+          </button>
+
+          <div className="market-card__vs">VS</div>
+
+          <button className="market-card__option-btn market-card__option-btn--no">
+            <span className="market-card__option-label">NO</span>
+            <span className="market-card__option-percent">{noPercent}%</span>
+          </button>
+        </div>
+
+        {/* Footer Section */}
+        <div className="market-card__footer">
+          <div className="market-card__footer-item">
+            <span className="market-card__footer-label">STAKE</span>
+            <span className="market-card__footer-value">{formatPool(market.yesPool)}</span>
+          </div>
+
+          <div className="market-card__time">
+            {timeLeftDisplay}
+          </div>
+
+          <div className="market-card__footer-item market-card__footer-item--win">
+            <span className="market-card__footer-label">WIN</span>
+            <span className="market-card__footer-value">{formatPool(market.noPool)}</span>
+          </div>
+        </div>
+
       </div>
     </Link>
   )
