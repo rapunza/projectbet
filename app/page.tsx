@@ -28,11 +28,13 @@ export default function Home() {
       <main className="app-content with-bottom-nav">
 
         {/* Category Bar */}
-        <CategoryBar 
-          categories={categoryItems} 
-          selectedCategory={category}
-          onSelect={(selected) => setCategory(selected as Category | 'All')}
-        />
+        <div className="md:flex md:justify-center">
+          <CategoryBar 
+            categories={categoryItems} 
+            selectedCategory={category}
+            onSelect={(selected) => setCategory(selected as Category | 'All')}
+          />
+        </div>
 
         {/* Status Tabs */}
         <div className="nav-tabs animate-fade-in">

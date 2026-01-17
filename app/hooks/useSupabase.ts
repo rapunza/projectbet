@@ -132,7 +132,29 @@ export function useLeaderboard(limit: number = 50) {
           .limit(limit)
 
         if (fetchError) throw fetchError
-        setLeaderboard(data || [])
+        
+        // Transform the data to flatten the nested users object
+        const transformedData = (data || []).map((item: any) => ({
+          // Use user id as the main id
+          id: item.users?.id,
+          // UserStats fields
+          user_id: item.users?.id, // Redundant but keeping for compatibility
+          points: item.points,
+          wins: item.wins,
+          markets_created: item.markets_created,
+          total_earned: item.total_earned,
+          win_rate: item.win_rate,
+          created_at: item.created_at,
+          updated_at: item.updated_at,
+          // UserProfile fields (flattened from users object)
+          wallet_address: item.users?.wallet_address,
+          username: item.users?.username,
+          display_name: item.users?.display_name,
+          bio: null, // Not selected in query
+          avatar_url: item.users?.avatar_url,
+        }))
+        
+        setLeaderboard(transformedData)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch leaderboard')
       } finally {

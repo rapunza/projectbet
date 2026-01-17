@@ -36,8 +36,8 @@ export function CategoryBar({ categories, selectedCategory, onSelect, className 
 
   return (
     <div className={`w-full py-0 ${className}`}>
-      <div className="flex justify-center overflow-x-auto md:overflow-visible [&::-webkit-scrollbar]:h-0.5 [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-white/20">
-        <div className="flex gap-0.5">
+      <div className="overflow-x-auto md:overflow-visible [&::-webkit-scrollbar]:h-0.5 [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-white/20">
+        <div className="inline-flex gap-0.5 w-fit">
           {categories.map((category) => {
             const id = category.id || category.value || category.label
             const isSelected = selectedCategory === id
